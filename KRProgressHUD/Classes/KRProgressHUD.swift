@@ -271,7 +271,9 @@ extension KRProgressHUD {
     ///   - message: HUD's message.
     ///   - completion: Handler when showing is completed.
     public static func show(withMessage message: String? = nil, completion: CompletionHandler? = nil) {
-        shared.show(withMessage: message, isLoading: true, completion: completion)
+        Task { @MainActor in
+            shared.show(withMessage: message, isLoading: true, completion: completion)
+        }
     }
 
     /// Shows the HUD with success glyph.
