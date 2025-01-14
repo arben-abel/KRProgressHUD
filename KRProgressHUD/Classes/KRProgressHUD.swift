@@ -271,7 +271,7 @@ extension KRProgressHUD {
     ///   - message: HUD's message.
     ///   - completion: Handler when showing is completed.
     public static func show(withMessage message: String? = nil, completion: CompletionHandler? = nil) {
-        Task { @MainActor in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             shared.show(withMessage: message, isLoading: true, completion: completion)
         }
     }
@@ -338,6 +338,8 @@ extension KRProgressHUD {
     ///
     /// - Parameter completion: Hide completion handler.
     public static func dismiss(_ completion: CompletionHandler? = nil) {
-        shared.dismiss(completion: completion)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            shared.dismiss(completion: completion)
+        }
     }
 }
